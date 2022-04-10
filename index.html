@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSON Test</title>
+</head>
+<body>
+    <div id="myData"></div>
+    <script>
+        fetch('https://raw.githubusercontent.com/ztcollins/brewersAPP/main/data.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData");
+            for (var i = 0; i < data.length; i++) {
+
+                //name labels
+                var div = document.createElement("div");
+                var span = document.createElement("span");
+                span.innerHTML = '<span onclick="Collapser(this)">'+data[i].firstName + ' ' + data[i].lastName+'</span>';
+                span.style.fontWeight = 'bold';
+                span.style.cursor = 'pointer';
+                span.style.fontSize = '24px';
+
+                div.append(span);
+                
+                //info under names
+                var hidden = document.createElement("div");
+                hidden.innerHTML = '\tID: '.bold() + data[i].id + '\n\tPrimary position: '.bold() + data[i].primaryPosition + '\n\tBat side: '.bold() + data[i].batSide +
+                '\n\tThrow side: '.bold() + data[i].throwSide + '\n\tNumber: '.bold() + data[i].number + '\n\tBirth city: '.bold() + data[i].birthCity  +
+                '\n\tBirth state province: '.bold() + data[i].birthStateProvince + '\n\tBirth country: '.bold() + data[i].birthCountry + '\n';
+                hidden.style = "white-space: pre-wrap";
+
+                //picture under names
+                var pic = document.createElement("img");
+                pic.src = data[i].picture;
+                pic.border = '5';
+                hidden.append(pic);
+                
+                //setting info under names
+                hidden.style.fontWeight = 'normal';
+                hidden.style.cursor = 'default';
+                hidden.style.display = 'none';
+                hidden.style.fontSize = '20px';
+                
+                
+                span.appendChild(hidden);
+                
+                mainContainer.appendChild(div);
+            }
+        }
+        function Collapser(item)
+        {
+            if (!item.parentNode.getElementsByTagName("div")[0]) return;
+            var x = item.parentNode.getElementsByTagName("div")[0];
+            x.style.display = (x.style.display == "") ? 'none' : "";
+}
+    </script>
+    
+</body>
+</html>
