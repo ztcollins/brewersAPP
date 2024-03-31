@@ -1,5 +1,5 @@
 # brewersAPP
-used for JSON and upload
+NOTE: This repo is deprecated and was used for an internship application
 
 HI, Welcome to my brewer's application!
 
